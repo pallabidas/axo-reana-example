@@ -1,0 +1,19 @@
+version: 0.9.4
+inputs:
+  parameters:
+    input: inputs.yaml
+  files:
+    - Snakefile
+    - axo_studies.py
+    - 2024_data_filelist.json
+workflow:
+  type: snakemake
+  resources:
+    kerberos: true
+  file: Snakefile
+  resources:
+    cvmfs:
+      - cms.cern.ch
+outputs:
+  files:
+    - hist_result_Scouting_2024I_test.pkl

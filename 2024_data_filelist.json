@@ -1,0 +1,7 @@
+{
+    "Scouting_2024I" : {
+        "files" : {
+             "root://eoscms.cern.ch//eos/cms/store/group/phys_exotica/axol1tl/Data_ScoutingNano_withAXOscore/axo_test.root": "Events"
+        }
+    }
+}
