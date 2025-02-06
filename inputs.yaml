@@ -1,3 +1,7 @@
 #File for setting Snakefile parameters
+sample:
+  - 'Scouting_2024F'
+  - 'Scouting_2024G'
+  - 'Scouting_2024I'
 n_files_max_per_sample: 2 #Set the number of files to be processed for each sample
 use_dask: False
