@@ -37,15 +37,18 @@ from coffea.util import save
 
 ###################################################################################################
 # PROCESSING OPTIONS
+import argparse
+parser = argparse.ArgumentParser(
+    description="Specifications for input json"
+)
+parser.add_argument("--sample_name", help="Sample name of the json file", required=True)
+parser.add_argument("--index",  help="Index of the json file", required=True)
+args = parser.parse_args()
 
-json_filename = "2024_data_filelist.json"  # name of json file containing root file paths
-#dataset_name = "Scouting_2024I"            # name of key within json containing dataset
-with open(json_filename, "r") as fd:
-    data = json.load(fd)
-    sample_name = []
+sample_name = args.sample_name
+index = args.index
 
-    for sample, files in data.items():
-        sample_name.append(sample)
+json_filename = "filelist_" + sample_name + "_" + index + ".json"
 
 has_scores = True                          # whether the files contain axo anomaly score branches
 is_scouting = True                         # whether the files are scouting nanos
@@ -1463,7 +1466,7 @@ def main():
         dataset = json.load(json_file)
 
     for sample, files in dataset.items():
-        sample_name = f"{sample}"
+        #sample_name = f"{sample}"
         dataset_skimmed = {sample_name: {'files': {}}}
         i = 0
         for key, value in dataset[sample_name]['files'].items():
@@ -1507,7 +1510,7 @@ def main():
         hist_result = hist_result[0]
 
         #Save file 
-        save(hist_result, f'histograms/hist_result_{sample_name}_test.pkl')
+        save(hist_result, f'histograms/hist_result_{sample_name}_{index}.pkl')
 
 ###################################################################################################
 # RUN SCRIPT

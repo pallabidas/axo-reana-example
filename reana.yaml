@@ -4,6 +4,7 @@ inputs:
     input: inputs.yaml
   files:
     - Snakefile
+    - prepare_workspace.py
     - axo_studies.py
     - 2024_data_filelist.json
 workflow:
