@@ -6,6 +6,8 @@ inputs:
     - Snakefile
     - prepare_workspace.py
     - axo_studies.py
+    - combine_hists.py
+    - plotting.py
     - 2024_data_filelist.json
 workflow:
   type: snakemake
