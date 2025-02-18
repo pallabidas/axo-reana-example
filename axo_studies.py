@@ -7,12 +7,13 @@
 
 ###################################################################################################
 # IMPORTS
+import os
 
 # library imports
 import awkward as ak
 from collections import defaultdict
 import dask
-#from dask.distributed import Client
+from dask.distributed import Client
 import dask_awkward as dak
 #import dill
 import hist
@@ -1448,7 +1449,8 @@ class MakeAXOHists (processor.ProcessorABC):
 ###################################################################################################
 # DEFINE MAIN FUNCTION
 def main():
-    #client = Client("tls://localhost:8786")
+    DASK_SCHEDULER_URI = os.getenv("DASK_SCHEDULER_URI")
+    client = Client(DASK_SCHEDULER_URI)
     
     with open(json_filename) as json_file:
         dataset = json.load(json_file)

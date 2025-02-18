@@ -9,11 +9,14 @@ inputs:
 workflow:
   type: snakemake
   resources:
-    kerberos: true
-  file: Snakefile
-  resources:
+    dask:
+      image: docker.io/coffeateam/coffea-dask-almalinux9:latest
+      number_of_workers: 2
+      single_worker_memory: 4Gi
     cvmfs:
       - cms.cern.ch
+    kerberos: true
+  file: Snakefile
 outputs:
   files:
     - hist_result_Scouting_2024I_test.pkl
