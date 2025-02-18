@@ -1,3 +1,7 @@
 #File for setting Snakefile parameters
+input_json: "2024_data_filelist.json"
+plots:
+  - l1ht
+  - anomaly_score
 n_files_max_per_sample: 2 #Set the number of files to be processed for each sample
 use_dask: False

@@ -1508,7 +1508,7 @@ def main():
         hist_result = hist_result[0]
 
         #Save file 
-        save(hist_result, f'histograms/hist_result_{sample_name}_test.pkl')
+        save(hist_result, f'histograms/hist_result_{sample_name}.pkl')
 
 ###################################################################################################
 # RUN SCRIPT

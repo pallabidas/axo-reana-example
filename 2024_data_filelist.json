@@ -1,7 +1,11 @@
 {
     "Scouting_2024I" : {
         "files" : {
-             "root://eoscms.cern.ch//eos/cms/store/group/phys_exotica/axol1tl/Data_ScoutingNano_withAXOscore/axo_test.root": "Events"
+	     "root://eoscms.cern.ch//eos/cms/store/group/phys_exotica/axol1tl/Data_ScoutingNano_withAXOscore/2024I/output_input_files_2024I.txt_1093.root": "Events",
+	     "root://eoscms.cern.ch//eos/cms/store/group/phys_exotica/axol1tl/Data_ScoutingNano_withAXOscore/2024I/output_input_files_2024I.txt_1142.root": "Events",
+	     "root://eoscms.cern.ch//eos/cms/store/group/phys_exotica/axol1tl/Data_ScoutingNano_withAXOscore/2024I/output_input_files_2024I.txt_1117.root": "Events",
+	     "root://eoscms.cern.ch//eos/cms/store/group/phys_exotica/axol1tl/Data_ScoutingNano_withAXOscore/2024I/output_input_files_2024I.txt_1175.root": "Events",
+	     "root://eoscms.cern.ch//eos/cms/store/group/phys_exotica/axol1tl/Data_ScoutingNano_withAXOscore/2024I/output_input_files_2024I.txt_1155.root": "Events"
         }
     }
 }
