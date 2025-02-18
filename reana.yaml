@@ -18,5 +18,5 @@ workflow:
     kerberos: true
   file: Snakefile
 outputs:
-  files:
-    - hist_result_Scouting_2024I_test.pkl
+  directories:
+    - histograms

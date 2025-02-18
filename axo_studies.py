@@ -40,7 +40,13 @@ from coffea.util import save
 # PROCESSING OPTIONS
 
 json_filename = "2024_data_filelist.json"  # name of json file containing root file paths
-dataset_name = "Scouting_2024I"            # name of key within json containing dataset
+with open(json_filename, "r") as fd:
+    data = json.load(fd)
+    sample_name = []
+
+    for sample, files in data.items():
+        sample_name.append(sample)
+
 has_scores = True                          # whether the files contain axo anomaly score branches
 is_scouting = True                         # whether the files are scouting nanos
 axo_v = "v4"                               # which axo version to use for score hists
@@ -331,7 +337,8 @@ class MakeAXOHists (processor.ProcessorABC):
         is_scouting=False, 
         extra_cut='', 
         thresholds=None, 
-        object_dict=None
+        object_dict=None,
+        dataset_name=None
     ):
         if is_scouting:
             the_object_dict =  {'ScoutingPFJet' :      {'cut' : [('pt', 30.)], 'label' : 'j'},
@@ -371,6 +378,7 @@ class MakeAXOHists (processor.ProcessorABC):
         self.hists_to_process = hists_to_process
         self.branches_to_save = branches_to_save
         self.axo_version = axo_version
+        self.dataset_name = dataset_name
         
         # define axes for histograms
         self.dataset_axis = hist.axis.StrCategory(
@@ -1454,54 +1462,53 @@ def main():
     
     with open(json_filename) as json_file:
         dataset = json.load(json_file)
-    
-    dataset_skimmed = {dataset_name: {'files': {}}}
-    i = 0
-    for key, value in dataset[dataset_name]['files'].items():
-        if ((i<n_files) or (n_files==-1)):
-            dataset_skimmed[dataset_name]['files'][key] = value
-        i+=1
-         
-    print(f"Processing {i} files")
-        
-    dataset_runnable, dataset_updated = preprocess(
-        dataset_skimmed,
-        align_clusters=False,
-        step_size=coffea_step_size,
-        files_per_batch=coffea_files_per_batch,
-        skip_bad_files=True,
-        save_form=False,
-    )
 
-    tstart = time.time()
-    
-    to_compute = apply_to_fileset(
-        MakeAXOHists(trigger_paths=triggers, 
-                     hists_to_process=hist_selection,
-                     branches_to_save=branch_selection,
-                     has_scores=has_scores, 
-                     axo_version=axo_v,
-                     is_scouting=is_scouting),
-        max_chunks(dataset_runnable, 300000),
-        schemaclass=ScoutingNanoAODSchema,
-        uproot_options={"allow_read_errors_with_report": (OSError, TypeError, KeyError)}
-    )
-    
-    dask.optimize(to_compute)
-    dask.visualize(to_compute, filename="dask_coffea_graph_combinedTriggers", format="pdf")
-    #to_compute[1].get('Scouting_2024I').visualize(filename="dask_coffea_graph_combinedTriggers", format="png", optimize_graph=False)
-    
-        
-    (hist_result,) = dask.compute(to_compute)
-    print(f'{time.time()-tstart:.1f}s to process')
-    hist_result = hist_result[0]
+    for sample, files in dataset.items():
+        sample_name = f"{sample}"
+        dataset_skimmed = {sample_name: {'files': {}}}
+        i = 0
+        for key, value in dataset[sample_name]['files'].items():
+            if ((i<n_files) or (n_files==-1)):
+                dataset_skimmed[sample_name]['files'][key] = value
+            i+=1
+             
+        print(f"Processing {i} files")
+            
+        dataset_runnable, dataset_updated = preprocess(
+            dataset_skimmed,
+            align_clusters=False,
+            step_size=coffea_step_size,
+            files_per_batch=coffea_files_per_batch,
+            skip_bad_files=True,
+            save_form=False
+        )
 
-    #Save file 
-    #with open(f'hist_result_{dataset_name}_test.pkl', 'wb') as file:
-    #        # dump information to that file
-    #        dill.dump(hist_result, file)
-   
-    save(hist_result, f'hist_result_{dataset_name}_test.pkl')
+        tstart = time.time()
+        
+        to_compute = apply_to_fileset(
+            MakeAXOHists(trigger_paths=triggers, 
+                         hists_to_process=hist_selection,
+                         branches_to_save=branch_selection,
+                         has_scores=has_scores, 
+                         axo_version=axo_v,
+                         is_scouting=is_scouting,
+                         dataset_name=sample_name),
+            max_chunks(dataset_runnable, 300000),
+            schemaclass=ScoutingNanoAODSchema,
+            uproot_options={"allow_read_errors_with_report": (OSError, TypeError, KeyError)}
+        )
+        
+        dask.optimize(to_compute)
+        dask.visualize(to_compute, filename="dask_coffea_graph_combinedTriggers", format="pdf")
+        #to_compute[1].get('Scouting_2024I').visualize(filename="dask_coffea_graph_combinedTriggers", format="png", optimize_graph=False)
+        
+            
+        (hist_result,) = dask.compute(to_compute)
+        print(f'{time.time()-tstart:.1f}s to process')
+        hist_result = hist_result[0]
+
+        #Save file 
+        save(hist_result, f'histograms/hist_result_{sample_name}_test.pkl')
 
 ###################################################################################################
 # RUN SCRIPT
