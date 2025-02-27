@@ -56,7 +56,8 @@ rule prepare:
 # Rule for skimming
 rule skim:
     input:
-        "axo_studies.py"
+        "axo_studies.py",
+        json_files
     output:
         "histograms/hist_result_{sample}_{index}.pkl"
     resources:
