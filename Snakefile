@@ -47,7 +47,8 @@ rule prepare:
     resources:
         kerberos=True
     container:
-        "docker.io/coffeateam/coffea-dask-almalinux9:latest"
+        #"docker.io/coffeateam/coffea-dask-almalinux9:latest"
+        "registry.cern.ch/docker.io/coffeateam/coffea-dask-almalinux9:latest"
     shell:
         """
         python3 prepare_workspace.py --json {INPUT_JSON} --nfiles {N_FILES_MAX_PER_SAMPLE}
@@ -63,13 +64,14 @@ rule skim:
     resources:
         kerberos=True
     container:
-        "docker.io/coffeateam/coffea-dask-almalinux9:latest"
+        #"docker.io/coffeateam/coffea-dask-almalinux9:latest"
+        "registry.cern.ch/docker.io/coffeateam/coffea-dask-almalinux9:latest"
     params:
-        sample_name="{sample}",
+        sample="{sample}",
         index="{index}"
     shell:
         """
-        python3 axo_studies.py --sample_name {params.sample_name} --index {params.index}
+        python3 axo_studies.py --sample_name {params.sample} --index {params.index}
         """
 
 # Rule for merging and plotting
@@ -83,7 +85,8 @@ rule plot:
     resources:
         kubernetes_memory_limit="1850Mi"
     container:
-        "docker.io/coffeateam/coffea-dask-almalinux9:latest"
+        #"docker.io/coffeateam/coffea-dask-almalinux9:latest"
+        "registry.cern.ch/docker.io/coffeateam/coffea-dask-almalinux9:latest"
     shell:
         """
         python3 combine_hists.py --files histograms/hist_result_{sample}_*.pkl --output histograms/all_hists_{sample}.pkl
