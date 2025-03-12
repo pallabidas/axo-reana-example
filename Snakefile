@@ -71,7 +71,7 @@ rule skim:
         index="{index}"
     shell:
         """
-        python3 axo_studies.py --sample_name {params.sample} --index {params.index}
+        python3 axo_studies.py --sample_name {params.sample} --index {params.index}  || touch {output}
         """
 
 # Rule for merging and plotting

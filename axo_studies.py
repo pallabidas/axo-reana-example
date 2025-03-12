@@ -36,6 +36,12 @@ from coffea.dataset_tools import (
 from coffea.util import save
 
 ###################################################################################################
+# RANDOM FAILURE
+import sys
+import random
+if random.random() < 0.5:
+    sys.exit(1)
+
 # PROCESSING OPTIONS
 import argparse
 parser = argparse.ArgumentParser(
