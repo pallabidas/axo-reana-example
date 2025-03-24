@@ -8,15 +8,15 @@ inputs:
     - axo_studies.py
     - combine_hists.py
     - plotting.py
-    - 2024_data_filelist.json
+    - test_xrootd.json
 workflow:
   type: snakemake
   resources:
     kerberos: true
-  file: Snakefile
-  resources:
+    voms_proxy: true
     cvmfs:
       - cms.cern.ch
+  file: Snakefile
 outputs:
   directories:
     - histograms

@@ -1,0 +1,12 @@
+{
+    "Scouting_2024I" : {
+        "files" : {
+             "root://cmsxrootd.hep.wisc.edu//store/user/pdas/testREANA/output_3264_v1_run386640.root": "Events",
+             "root://cmsxrootd.hep.wisc.edu//store/user/pdas/testREANA/output_3624_v1_run386642.root": "Events",
+             "root://cmsxrootd.hep.wisc.edu//store/user/pdas/testREANA/output_3393_v1_run386640.root": "Events",
+             "root://cmsxrootd.hep.wisc.edu//store/user/pdas/testREANA/output_3361_v1_run386640.root": "Events",
+             "root://cmsxrootd.hep.wisc.edu//store/user/pdas/testREANA/output_3607_v1_run386642.root": "Events",
+             "root://cmsxrootd.hep.wisc.edu//store/user/pdas/testREANA/output_2937_v1_run386618.root": "Events"
+	              }
+    }
+}

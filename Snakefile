@@ -62,7 +62,8 @@ rule skim:
     output:
         "histograms/hist_result_{sample}_{index}.pkl"
     resources:
-        kerberos=True
+        kerberos=True,
+        voms_proxy=True
     container:
         #"docker.io/coffeateam/coffea-dask-almalinux9:latest"
         "registry.cern.ch/docker.io/coffeateam/coffea-dask-almalinux9:latest"

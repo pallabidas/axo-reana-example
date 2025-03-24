@@ -1,5 +1,5 @@
 #File for setting Snakefile parameters
-input_json: "2024_data_filelist.json"
+input_json: "test_xrootd.json"
 plots:
   - l1ht
   - anomaly_score
