@@ -33,7 +33,7 @@ rule skim:
     resources:
         kerberos=True
     container:
-        "docker.io/coffeateam/coffea-dask-almalinux9:latest"
+        "registry.cern.ch/docker.io/coffeateam/coffea-dask-almalinux9-noml:2025.3.0-py3.12"
     shell:
         """
         mkdir histograms
@@ -50,7 +50,7 @@ rule plot:
     resources:
         kubernetes_memory_limit="1850Mi"
     container:
-        "docker.io/coffeateam/coffea-dask-almalinux9:latest"
+        "registry.cern.ch/docker.io/coffeateam/coffea-dask-almalinux9-noml:2025.3.0-py3.12"
     shell:
         """
         python3 plotting.py --file histograms/hist_result_{sample}.pkl --vars {PLOTS}

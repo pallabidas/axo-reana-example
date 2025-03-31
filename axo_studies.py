@@ -50,9 +50,9 @@ with open(json_filename, "r") as fd:
 has_scores = True                          # whether the files contain axo anomaly score branches
 is_scouting = True                         # whether the files are scouting nanos
 axo_v = "v4"                               # which axo version to use for score hists
-n_files = 1                                # number of files to process (-1 for all)
-coffea_step_size = 50_000                  # step size for coffea processor
-coffea_files_per_batch = 1                 # files per batch for coffea processor
+n_files = -1                                # number of files to process (-1 for all)
+coffea_step_size = 200_000                  # step size for coffea processor
+coffea_files_per_batch = 25                 # files per batch for coffea processor
 
 # which reco objects to process (comment out unwanted list items)
 reco_objects = [
@@ -1493,7 +1493,7 @@ def main():
                          axo_version=axo_v,
                          is_scouting=is_scouting,
                          dataset_name=sample_name),
-            max_chunks(dataset_runnable, 300000),
+            max_chunks(dataset_runnable, 200000),
             schemaclass=ScoutingNanoAODSchema,
             uproot_options={"allow_read_errors_with_report": (OSError, TypeError, KeyError)}
         )

@@ -11,10 +11,10 @@ workflow:
   type: snakemake
   resources:
     dask:
-      #image: unpacked.cern.ch/registry.hub.docker.com/coffeateam/coffea-dask-almalinux9:latest
-      image: docker.io/coffeateam/coffea-dask-almalinux9:latest
-      number_of_workers: 80
-      single_worker_memory: 4Gi
+      image: registry.cern.ch/docker.io/coffeateam/coffea-dask-almalinux9-noml:2025.3.0-py3.12
+      number_of_workers: 40
+      single_worker_memory: 8Gi
+      single_worker_threads: 1
     cvmfs:
       - cms.cern.ch
     kerberos: true
