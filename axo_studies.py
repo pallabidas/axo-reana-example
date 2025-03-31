@@ -53,7 +53,7 @@ json_filename = "filelist_" + sample_name + "_" + index + ".json"
 has_scores = True                          # whether the files contain axo anomaly score branches
 is_scouting = True                         # whether the files are scouting nanos
 axo_v = "v4"                               # which axo version to use for score hists
-n_files = 1                                # number of files to process (-1 for all)
+n_files = -1                                # number of files to process (-1 for all)
 coffea_step_size = 50_000                  # step size for coffea processor
 coffea_files_per_batch = 1                 # files per batch for coffea processor
 
