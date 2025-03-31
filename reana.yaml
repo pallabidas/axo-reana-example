@@ -3,22 +3,30 @@ inputs:
   parameters:
     input: inputs.yaml
   files:
-    - Snakefile
     - axo_studies.py
     - plotting.py
     - 2024_data_filelist.json
 workflow:
-  type: snakemake
+  type: serial
   resources:
     dask:
-      #image: unpacked.cern.ch/registry.hub.docker.com/coffeateam/coffea-dask-almalinux9:latest
-      image: docker.io/coffeateam/coffea-dask-almalinux9:latest
-      number_of_workers: 80
-      single_worker_memory: 4Gi
+      image: registry.cern.ch/docker.io/coffeateam/coffea-dask-almalinux9-noml:2025.3.0-py3.12
+      number_of_workers: 150
+      single_worker_memory: 2Gi
+      single_worker_threads: 4
     cvmfs:
       - cms.cern.ch
     kerberos: true
-  file: Snakefile
+  specification:
+    steps:
+      - name: axo
+        environment: registry.cern.ch/docker.io/coffeateam/coffea-dask-almalinux9-noml:2025.3.0-py3.12
+        commands:
+          - mkdir histograms
+          - python3 axo_studies.py
+          - python3 plotting.py --file histograms/hist_result_Scouting_2024I.pkl --vars l1ht
+          - python3 plotting.py --file histograms/hist_result_Scouting_2024I.pkl --vars anomaly_score
+
 outputs:
   directories:
     - histograms
