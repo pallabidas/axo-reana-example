@@ -11,10 +11,9 @@ inputs:
     - 2024_data_filelist.json
 workflow:
   type: snakemake
-  resources:
-    kerberos: true
   file: Snakefile
   resources:
+    kerberos: true
     cvmfs:
       - cms.cern.ch
 outputs:
