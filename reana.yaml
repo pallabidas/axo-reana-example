@@ -10,7 +10,7 @@ workflow:
   type: serial
   resources:
     dask:
-      image: registry.cern.ch/docker.io/coffeateam/coffea-dask-almalinux9-noml:2025.3.0-py3.12
+      image: registry.cern.ch/docker.io/coffeateam/coffea-dask-almalinux9:latest
       number_of_workers: 150
       single_worker_memory: 2Gi
       single_worker_threads: 4
@@ -20,7 +20,7 @@ workflow:
   specification:
     steps:
       - name: axo
-        environment: registry.cern.ch/docker.io/coffeateam/coffea-dask-almalinux9-noml:2025.3.0-py3.12
+        environment: registry.cern.ch/docker.io/coffeateam/coffea-dask-almalinux9:latest
         commands:
           - mkdir histograms
           - python3 axo_studies.py
